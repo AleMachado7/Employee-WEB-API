@@ -1,9 +1,11 @@
 ﻿using EmployeeWebApi.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeWebApi.Models
 {
     public class EmployeeModel
     {
+        [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
