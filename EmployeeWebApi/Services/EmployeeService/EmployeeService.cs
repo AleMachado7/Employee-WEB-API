@@ -15,7 +15,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
         public async Task<ServiceResponse<EmployeeModel>> CreateEmployeeAsync(EmployeeModel employee)
         {
-            ServiceResponse<EmployeeModel> serviceResponse = new ServiceResponse<EmployeeModel>();
+            var serviceResponse = new ServiceResponse<EmployeeModel>();
 
             try
             {
@@ -44,7 +44,34 @@ namespace EmployeeWebApi.Services.EmployeeService
 
         public async Task<ServiceResponse<EmployeeModel>> DeleteEmployeeAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<EmployeeModel>();
+
+            try
+            {
+                var employee = _context.Employee.FirstOrDefault(x => x.Id == id);
+
+                if (employee == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Employee not found!";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
+                }
+
+                _context.Employee.Remove(employee);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = employee;
+                serviceResponse.Success = true;
+                serviceResponse.Message = "Employee deleted successly"
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<EmployeeModel>> GetEmployeeByIdAsync(Guid id)
@@ -77,7 +104,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
         public async Task<ServiceResponse<List<EmployeeModel>>> GetEmployeesAsync()
         {
-            ServiceResponse<List<EmployeeModel>> serviceResponse = new ServiceResponse<List<EmployeeModel>>();
+            var serviceResponse = new ServiceResponse<List<EmployeeModel>>();
 
             try
             {

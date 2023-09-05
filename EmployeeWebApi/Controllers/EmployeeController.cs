@@ -45,5 +45,11 @@ namespace EmployeeWebApi.Controllers
         {
             return Ok(await _employeeService.UpdateEmployeeAsync(employeeToUpdate));
         }
+
+        [HttpDelete]
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> DeleteEmployeeAsync(Guid id)
+        {
+            return Ok(await _employeeService.DeleteEmployeeAsync(id));
+        }
     }
 }
