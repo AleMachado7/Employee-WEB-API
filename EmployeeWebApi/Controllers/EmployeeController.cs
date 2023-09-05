@@ -39,5 +39,11 @@ namespace EmployeeWebApi.Controllers
         {
             return Ok(await _employeeService.InactivateEmployeeAsync(id));
         }
+
+        [HttpPut]
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> UpdateEmployeeAsync(EmployeeModel employeeToUpdate)
+        {
+            return Ok(await _employeeService.UpdateEmployeeAsync(employeeToUpdate));
+        }
     }
 }

@@ -132,9 +132,37 @@ namespace EmployeeWebApi.Services.EmployeeService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<EmployeeModel>> UpdateEmployeeAsync(EmployeeModel employee)
+        public async Task<ServiceResponse<EmployeeModel>> UpdateEmployeeAsync(EmployeeModel employeeToUpdate)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<EmployeeModel>();
+
+            try
+            {
+                var employee = _context.Employee.AsNoTracking().FirstOrDefault(x => x.Id == employeeToUpdate.Id);
+
+                if (employee == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Employee not found!";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
+                }
+
+                employee.UpdateDate = DateTime.Now.ToLocalTime();
+
+                _context.Employee.Update(employeeToUpdate);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = employee;
+                serviceResponse.Success = true;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
         }
     }
 }
