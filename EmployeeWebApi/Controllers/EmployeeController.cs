@@ -21,5 +21,11 @@ namespace EmployeeWebApi.Controllers
         {
             return Ok(await _employeeService.GetEmployeesAsync());
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> CreateEmployeeAsync(EmployeeModel employee)
+        {
+            return Ok(await _employeeService.CreateEmployeeAsync(employee));
+        }
     }
 }

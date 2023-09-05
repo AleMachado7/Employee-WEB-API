@@ -15,7 +15,31 @@ namespace EmployeeWebApi.Services.EmployeeService
 
         public async Task<ServiceResponse<EmployeeModel>> CreateEmployeeAsync(EmployeeModel employee)
         {
-            throw new NotImplementedException();
+            ServiceResponse<EmployeeModel> serviceResponse = new ServiceResponse<EmployeeModel>();
+
+            try
+            {
+                if (employee == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Employee is null, please check the Model information.";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
+                }
+
+                _context.Add(employee);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = employee;
+                serviceResponse.Success = true;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<EmployeeModel>> DeleteEmployeeAsync(Guid id)
