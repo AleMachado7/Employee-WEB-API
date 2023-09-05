@@ -1,0 +1,64 @@
+﻿using EmployeeWebApi.DataContext;
+using EmployeeWebApi.Models;
+using Microsoft.EntityFrameworkCore;
+
+namespace EmployeeWebApi.Services.EmployeeService
+{
+    public class EmployeeService : IEmployeeService
+    {
+        private readonly ApplicationDbContext _context;
+
+        public EmployeeService(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
+        public async Task<ServiceResponse<EmployeeModel>> CreateEmployeeAsync(EmployeeModel employee)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<EmployeeModel>> DeleteEmployeeAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<EmployeeModel>> GetEmployeeByIdAsync(Guid Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<List<EmployeeModel>>> GetEmployeesAsync()
+        {
+            ServiceResponse<List<EmployeeModel>> serviceResponse = new ServiceResponse<List<EmployeeModel>>();
+
+            try
+            {
+                serviceResponse.Data = await _context.Employee.ToListAsync();
+                serviceResponse.Success = true;
+
+                if (serviceResponse.Data.Count == 0)
+                {
+                    serviceResponse.Message = "No data was found.";
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<EmployeeModel>> InactivateEmployeeAsync(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<ServiceResponse<EmployeeModel>> UpdateEmployeeAsync(EmployeeModel employee)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}
