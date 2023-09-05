@@ -63,7 +63,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
                 serviceResponse.Data = employee;
                 serviceResponse.Success = true;
-                serviceResponse.Message = "Employee deleted successly"
+                serviceResponse.Message = "Employee deleted successfully";
             }
             catch (Exception ex)
             {
