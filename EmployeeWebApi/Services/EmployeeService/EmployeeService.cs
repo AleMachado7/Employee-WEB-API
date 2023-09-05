@@ -32,6 +32,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
                 serviceResponse.Data = employee;
                 serviceResponse.Success = true;
+                serviceResponse.Message = "Employee created!";
             }
             catch (Exception ex)
             {
@@ -63,7 +64,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
                 serviceResponse.Data = employee;
                 serviceResponse.Success = true;
-                serviceResponse.Message = "Employee deleted successfully";
+                serviceResponse.Message = "Employee deleted!";
             }
             catch (Exception ex)
             {
@@ -149,6 +150,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
                 serviceResponse.Data = employee;
                 serviceResponse.Success = true;
+                serviceResponse.Message = "Employee inactivated!";
             }
             catch (Exception ex)
             {
@@ -182,6 +184,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
                 serviceResponse.Data = employee;
                 serviceResponse.Success = true;
+                serviceResponse.Message = "Employee updated!";
             }
             catch (Exception ex)
             {
