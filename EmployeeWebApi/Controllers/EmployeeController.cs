@@ -23,7 +23,7 @@ namespace EmployeeWebApi.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> GetEmployeeByIdAsync([FromRoute] Guid id)
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> GetEmployeeByIdAsync(Guid id)
         {
             return Ok(await _employeeService.GetEmployeeByIdAsync(id));
         }
@@ -32,6 +32,12 @@ namespace EmployeeWebApi.Controllers
         public async Task<ActionResult<ServiceResponse<EmployeeModel>>> CreateEmployeeAsync(EmployeeModel employee)
         {
             return Ok(await _employeeService.CreateEmployeeAsync(employee));
+        }
+
+        [HttpPut("inactivateEmployee")]
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> InactivateEmployeeAsync(Guid id)
+        {
+            return Ok(await _employeeService.InactivateEmployeeAsync(id));
         }
     }
 }

@@ -47,13 +47,13 @@ namespace EmployeeWebApi.Services.EmployeeService
             throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponse<EmployeeModel>> GetEmployeeByIdAsync(Guid Id)
+        public async Task<ServiceResponse<EmployeeModel>> GetEmployeeByIdAsync(Guid id)
         {
             var serviceResponse = new ServiceResponse<EmployeeModel>();
 
             try
             {
-                var employee = _context.Employee.FirstOrDefault(x => x.Id == Id);
+                var employee = _context.Employee.FirstOrDefault(x => x.Id == id);
 
                 if (employee == null)
                 {
@@ -100,7 +100,36 @@ namespace EmployeeWebApi.Services.EmployeeService
 
         public async Task<ServiceResponse<EmployeeModel>> InactivateEmployeeAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<EmployeeModel>();
+
+            try
+            {
+                var employee = _context.Employee.FirstOrDefault(x => x.Id == id);
+
+                if (employee == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Employee not found!";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
+                }
+
+                employee.Active = false;
+                employee.UpdateDate = DateTime.Now.ToLocalTime();
+
+                _context.Employee.Update(employee);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = employee;
+                serviceResponse.Success = true;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<EmployeeModel>> UpdateEmployeeAsync(EmployeeModel employee)
