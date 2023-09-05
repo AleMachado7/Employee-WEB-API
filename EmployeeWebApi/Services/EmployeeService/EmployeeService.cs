@@ -49,7 +49,30 @@ namespace EmployeeWebApi.Services.EmployeeService
 
         public async Task<ServiceResponse<EmployeeModel>> GetEmployeeByIdAsync(Guid Id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<EmployeeModel>();
+
+            try
+            {
+                var employee = _context.Employee.FirstOrDefault(x => x.Id == Id);
+
+                if (employee == null)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Employee not found!";
+                    serviceResponse.Success = false;
+                    return serviceResponse;
+                }
+
+                serviceResponse.Data = employee;
+                serviceResponse.Success = true;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
         }
 
         public async Task<ServiceResponse<List<EmployeeModel>>> GetEmployeesAsync()

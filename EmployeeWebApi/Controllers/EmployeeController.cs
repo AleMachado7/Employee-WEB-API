@@ -22,6 +22,12 @@ namespace EmployeeWebApi.Controllers
             return Ok(await _employeeService.GetEmployeesAsync());
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> GetEmployeeByIdAsync([FromRoute] Guid id)
+        {
+            return Ok(await _employeeService.GetEmployeeByIdAsync(id));
+        }
+
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<EmployeeModel>>> CreateEmployeeAsync(EmployeeModel employee)
         {
