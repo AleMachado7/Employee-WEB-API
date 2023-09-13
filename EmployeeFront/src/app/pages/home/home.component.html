@@ -1,8 +1,8 @@
 <div class="employee-container">
     <button>Add new employee</button>
     <div class="search-container">
-        <label for ="search-text">Find employee:</label>
-        <input id="search-text" type="text" placeholder="Name of the employee">
+        <label for="search-text">Find employee:</label>
+        <input id="search-text" type="text" placeholder="Name of the employee" (input)="search($event)">
     </div>
 </div>
 
@@ -17,15 +17,19 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let employee of employees">
         <tr>
             <td>
-                <img src="assets/images/active.png" alt="" height="20px" width="20px">
-                <img src="assets/images/inactive.png" alt="" height="20px" width="20px">
+                <div *ngIf="employee.active === true; else inactive">
+                    <img src="assets/images/active.png" alt="" height="20px" width="20px">
+                </div>
+                <ng-template #inactive>
+                    <img src="assets/images/inactive.png" alt="" height="20px" width="20px">
+                </ng-template> 
             </td>
-            <td>John</td>
-            <td>Jhoe</td>
-            <td>Sales</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.surname }}</td>
+            <td>{{ employee.department }}</td>
             <td>
                 <button>Edit</button>
                 <button>Details</button>
