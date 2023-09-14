@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 
-namespace EmployeeWebApi.Models
+namespace EmployeeWebApi.Models.Employee
 {
-    public class EmployeeModel
+    public partial class EmployeeModel
     {
         [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
@@ -15,5 +15,17 @@ namespace EmployeeWebApi.Models
         public WorkShiftEnum WorkShift { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.Now;
         public DateTime UpdateDate { get; set; }
+
+        public static EmployeeModel Create(EmployeeParams createParams)
+        {
+            var model = new EmployeeModel();
+
+            model.Name = createParams.Name;
+            model.Surname = createParams.Surname;
+            model.Department = createParams.Department;
+            model.WorkShift = createParams.WorkShift;
+
+            return model;
+        }
     }
 }

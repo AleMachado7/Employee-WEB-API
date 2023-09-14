@@ -1,4 +1,5 @@
-﻿using EmployeeWebApi.Models;
+﻿using EmployeeWebApi.Models.Employee;
+using EmployeeWebApi.Models.ServiceResponse;
 using EmployeeWebApi.Services.EmployeeService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,9 +30,9 @@ namespace EmployeeWebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> CreateEmployeeAsync(EmployeeModel employee)
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> CreateEmployeeAsync(EmployeeParams createParams)
         {
-            return Ok(await _employeeService.CreateEmployeeAsync(employee));
+            return Ok(await _employeeService.CreateEmployeeAsync(createParams));
         }
 
         [HttpPut("inactivateEmployee")]

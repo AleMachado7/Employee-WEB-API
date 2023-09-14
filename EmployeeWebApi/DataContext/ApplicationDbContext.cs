@@ -1,4 +1,4 @@
-﻿using EmployeeWebApi.Models;
+﻿using EmployeeWebApi.Models.Employee;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeWebApi.DataContext

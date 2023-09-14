@@ -1,5 +1,6 @@
 ﻿using EmployeeWebApi.DataContext;
-using EmployeeWebApi.Models;
+using EmployeeWebApi.Models.Employee;
+using EmployeeWebApi.Models.ServiceResponse;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeWebApi.Services.EmployeeService
@@ -13,12 +14,14 @@ namespace EmployeeWebApi.Services.EmployeeService
             _context = context;
         }
 
-        public async Task<ServiceResponse<EmployeeModel>> CreateEmployeeAsync(EmployeeModel employee)
+        public async Task<ServiceResponse<EmployeeModel>> CreateEmployeeAsync(EmployeeParams createParams)
         {
             var serviceResponse = new ServiceResponse<EmployeeModel>();
 
             try
             {
+                var employee = EmployeeModel.Create(createParams);
+
                 if (employee == null)
                 {
                     serviceResponse.Data = null;
@@ -81,7 +84,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
             try
             {
-                var employee = _context.Employee.FirstOrDefault(x => x.Id == id);
+                var employee = await _context.Employee.FirstOrDefaultAsync(x => x.Id == id);
 
                 if (employee == null)
                 {

@@ -1,4 +1,4 @@
-﻿namespace EmployeeWebApi.Models
+﻿namespace EmployeeWebApi.Models.ServiceResponse
 {
     public class ServiceResponse<T>
     {
