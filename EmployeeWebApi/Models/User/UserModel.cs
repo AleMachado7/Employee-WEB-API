@@ -8,6 +8,7 @@ namespace EmployeeWebApi.Models.User
         public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
         [EmailAddress]
+        [Key]
         public string Email { get; set; }
         [Required]
         public string Password { get; set; }
