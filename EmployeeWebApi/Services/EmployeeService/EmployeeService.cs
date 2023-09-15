@@ -52,7 +52,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
             try
             {
-                var employee = _context.Employee.FirstOrDefault(x => x.Id == id);
+                var employee = _context.Employees.FirstOrDefault(x => x.Id == id);
 
                 if (employee == null)
                 {
@@ -62,7 +62,7 @@ namespace EmployeeWebApi.Services.EmployeeService
                     return serviceResponse;
                 }
 
-                _context.Employee.Remove(employee);
+                _context.Employees.Remove(employee);
                 await _context.SaveChangesAsync();
 
                 serviceResponse.Data = employee;
@@ -84,7 +84,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
             try
             {
-                var employee = await _context.Employee.FirstOrDefaultAsync(x => x.Id == id);
+                var employee = await _context.Employees.FirstOrDefaultAsync(x => x.Id == id);
 
                 if (employee == null)
                 {
@@ -112,7 +112,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
             try
             {
-                serviceResponse.Data = await _context.Employee.ToListAsync();
+                serviceResponse.Data = await _context.Employees.ToListAsync();
                 serviceResponse.Success = true;
 
                 if (serviceResponse.Data.Count == 0)
@@ -135,7 +135,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
             try
             {
-                var employee = _context.Employee.FirstOrDefault(x => x.Id == id);
+                var employee = _context.Employees.FirstOrDefault(x => x.Id == id);
 
                 if (employee == null)
                 {
@@ -148,7 +148,7 @@ namespace EmployeeWebApi.Services.EmployeeService
                 employee.Active = false;
                 employee.UpdateDate = DateTime.Now.ToLocalTime();
 
-                _context.Employee.Update(employee);
+                _context.Employees.Update(employee);
                 await _context.SaveChangesAsync();
 
                 serviceResponse.Data = employee;
@@ -170,7 +170,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
             try
             {
-                var employee = _context.Employee.AsNoTracking().FirstOrDefault(x => x.Id == employeeToUpdate.Id);
+                var employee = _context.Employees.AsNoTracking().FirstOrDefault(x => x.Id == employeeToUpdate.Id);
 
                 if (employee == null)
                 {
@@ -182,7 +182,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
                 employee.UpdateDate = DateTime.Now.ToLocalTime();
 
-                _context.Employee.Update(employeeToUpdate);
+                _context.Employees.Update(employeeToUpdate);
                 await _context.SaveChangesAsync();
 
                 serviceResponse.Data = employee;

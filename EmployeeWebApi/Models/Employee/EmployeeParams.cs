@@ -1,5 +1,4 @@
 ﻿using EmployeeWebApi.Enums;
-using System.ComponentModel.DataAnnotations;
 
 namespace EmployeeWebApi.Models.Employee
 {
