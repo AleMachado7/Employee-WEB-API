@@ -90,10 +90,11 @@ namespace EmployeeWebApi.Services.EmployeeService
                 {
                     serviceResponse.Data = null;
                     serviceResponse.Message = "Employee not found!";
-                    serviceResponse.Success = false;
+                    serviceResponse.Success = true;
                     return serviceResponse;
                 }
 
+                serviceResponse.Message = "Employee found!";
                 serviceResponse.Data = employee;
                 serviceResponse.Success = true;
             }
@@ -185,7 +186,7 @@ namespace EmployeeWebApi.Services.EmployeeService
                 _context.Employees.Update(employeeToUpdate);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Data = employee;
+                serviceResponse.Data = employeeToUpdate;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Employee updated!";
             }

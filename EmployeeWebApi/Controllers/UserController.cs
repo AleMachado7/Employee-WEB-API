@@ -1,29 +1,34 @@
-﻿using EmployeeWebApi.Services.UserService;
+﻿using EmployeeWebApi.Models.ServiceResponse;
+using EmployeeWebApi.Models.User;
+using EmployeeWebApi.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeWebApi.Controllers
 {
-    public class UserController : Controller
+    [Route("api/user")]
+    [ApiController]
+    public class UserController : ControllerBase
     {
-        [Route("api/sign-in")]
-        [ApiController]
-        public class SignInController : Controller
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
         {
-            private readonly IUserService _userService;
+            _userService = userService;
+        }
 
-            public SignInController(IUserService userService)
-            {
-                _userService = userService;
-            }
+        [HttpPost("create")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ServiceResponse<UserModel>>> CreateAsync(UserParams createParams)
+        {
+            return Ok(await _userService.CreateAsync(createParams));
+        }
 
-            [HttpPost("")]
-            [AllowAnonymous]
-            public async Task<IActionResult> SignInAsync()
-            {
-
-                return this.Ok();
-            }
+        [HttpPost("login")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ServiceResponse<UserModel>>> LoginAsync(string email, string password)
+        {
+            return this.Ok(await _userService.LoginAsync(email, password));
         }
     }
 }

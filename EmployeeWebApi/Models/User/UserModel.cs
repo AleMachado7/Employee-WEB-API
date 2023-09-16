@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EmployeeWebApi.Models.Token;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EmployeeWebApi.Models.User
@@ -14,7 +15,7 @@ namespace EmployeeWebApi.Models.User
         public string Password { get; set; }
         public bool Active { get; set; } = true;
         [NotMapped]
-        public string Token { get; set; }
+        public TokenModel Token { get; set; } = new TokenModel();
 
         public static UserModel Create(UserParams createParams)
         {

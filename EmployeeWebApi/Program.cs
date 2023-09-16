@@ -1,5 +1,6 @@
 using EmployeeWebApi.DataContext;
 using EmployeeWebApi.Services.EmployeeService;
+using EmployeeWebApi.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -20,7 +21,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
+// Dependence Injection
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 

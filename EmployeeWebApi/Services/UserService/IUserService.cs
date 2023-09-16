@@ -8,5 +8,6 @@ namespace EmployeeWebApi.Services.UserService
     {
         Task<ServiceResponse<UserModel>> CreateAsync(UserParams createParams);
         Task<ServiceResponse<UserModel>> LoginAsync(string email, string password);
+        Task<UserModel> GetUserByEmailAsync(string email);
     }
 }
