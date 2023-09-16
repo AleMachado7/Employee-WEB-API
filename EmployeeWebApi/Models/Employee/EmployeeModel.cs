@@ -13,7 +13,7 @@ namespace EmployeeWebApi.Models.Employee
         public bool Active { get; set; } = true;
         public WorkShiftEnum WorkShift { get; set; }
         public DateTime CreationDate { get; set; } = DateTime.Now;
-        public DateTime UpdateDate { get; set; }
+        public DateTime? UpdateDate { get; set; }
 
         public static EmployeeModel Create(EmployeeParams createParams)
         {
