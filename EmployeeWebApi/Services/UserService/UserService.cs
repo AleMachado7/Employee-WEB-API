@@ -15,9 +15,9 @@ namespace EmployeeWebApi.Services.UserService
             _context = context;
         }
 
-        public async Task<ServiceResponse<UserModel>> CreateAsync(UserParams createParams)
+        public async Task<ServiceResponse<UserResult>> CreateAsync(UserParams createParams)
         {
-            var serviceResponse = new ServiceResponse<UserModel>();
+            var serviceResponse = new ServiceResponse<UserResult>();
 
             try
             {
@@ -44,7 +44,7 @@ namespace EmployeeWebApi.Services.UserService
                 _context.Add(user);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Data = user;
+                serviceResponse.Data = new UserResult(user.Email, user.Token);
                 serviceResponse.Success = true;
                 serviceResponse.Message = "User created!";
             }
@@ -57,9 +57,9 @@ namespace EmployeeWebApi.Services.UserService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<UserModel>> LoginAsync(string email, string password)
+        public async Task<ServiceResponse<UserResult>> LoginAsync(string email, string password)
         {
-            var serviceResponse = new ServiceResponse<UserModel>();
+            var serviceResponse = new ServiceResponse<UserResult>();
             try
             {
                 var user = await GetUserByEmailAsync(email);
@@ -73,8 +73,9 @@ namespace EmployeeWebApi.Services.UserService
                     return serviceResponse;
                 }
 
-                serviceResponse.Data = user;
+                serviceResponse.Data = new UserResult(user.Email, user.Token);
                 serviceResponse.Success = true;
+                serviceResponse.Message = "Login success";
 
                 return serviceResponse;
 
