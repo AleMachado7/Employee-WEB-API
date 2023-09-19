@@ -1,8 +1,10 @@
-﻿using EmployeeWebApi.DataContext;
+﻿using EmployeeWebApi.Cryptographys;
+using EmployeeWebApi.DataContext;
 using EmployeeWebApi.Models.Employee;
 using EmployeeWebApi.Models.ServiceResponse;
 using EmployeeWebApi.Models.User;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
 
 namespace EmployeeWebApi.Services.UserService
 {
@@ -73,9 +75,20 @@ namespace EmployeeWebApi.Services.UserService
                     return serviceResponse;
                 }
 
+                var passwordCorret = Cryptography.ValidatePassword(password, user.PasswordHash, user.PasswordSalt);
+
+                if (!passwordCorret)
+                {
+                    serviceResponse.Data = null;
+                    serviceResponse.Message = "Wrong password!";
+                    serviceResponse.Success= false;
+
+                    return serviceResponse;
+                }
+
                 serviceResponse.Data = new UserResult(user.Email, user.Token);
                 serviceResponse.Success = true;
-                serviceResponse.Message = "Login success";
+                serviceResponse.Message = "Login successful";
 
                 return serviceResponse;
 

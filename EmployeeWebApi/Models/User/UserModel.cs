@@ -1,7 +1,7 @@
 ﻿using EmployeeWebApi.Models.Token;
-using EmployeeWebApi.Models.Criptographys;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using EmployeeWebApi.Cryptographys;
 
 namespace EmployeeWebApi.Models.User
 {
@@ -20,8 +20,12 @@ namespace EmployeeWebApi.Models.User
         {
             var model = new UserModel();
 
-            model.Email = createParams.Email;
-            Cryptography.CreateUserPasswordHash(createParams.Password, model);
+            model.Email = createParams.Email;    
+
+            Cryptography.GeneratePasswordHash(createParams.Password, out byte[] userPwdHash, out byte[] userPwdSalt);
+
+            model.PasswordHash = userPwdHash;
+            model.PasswordSalt = userPwdSalt;
 
             return model;
         }
