@@ -9,5 +9,6 @@ namespace EmployeeWebApi.Services.UserService
         Task<ServiceResponse<UserResult>> CreateAsync(UserParams createParams);
         Task<ServiceResponse<UserResult>> LoginAsync(string email, string password);
         Task<UserModel> GetUserByEmailAsync(string email);
+        Task<UserModel> GetUserByIdAsync(Guid id);        
     }
 }

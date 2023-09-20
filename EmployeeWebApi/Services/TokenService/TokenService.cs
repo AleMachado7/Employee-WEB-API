@@ -2,6 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace EmployeeWebApi.Services.TokenService
 {
@@ -17,17 +18,15 @@ namespace EmployeeWebApi.Services.TokenService
         {
             List<Claim> claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim("id", user.Id.ToString())
             };
 
-            var key = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(
-                _configuration.GetSection("AppSettings:Token").Value));
-
-            var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
             var token = new JwtSecurityToken(
                                    claims: claims,
                                    expires: DateTime.UtcNow.AddDays(1),
-                                   signingCredentials: cred);
+                                   signingCredentials: credentials);
 
             var jwt = new JwtSecurityTokenHandler().WriteToken(token);
 

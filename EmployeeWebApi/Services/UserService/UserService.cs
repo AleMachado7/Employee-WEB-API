@@ -49,7 +49,7 @@ namespace EmployeeWebApi.Services.UserService
                 _context.Add(user);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Data = new UserResult(user.Email, user.Token);
+                serviceResponse.Data = new UserResult(user.Id, user.Email, user.Token);
                 serviceResponse.Success = true;
                 serviceResponse.Message = "User created!";
             }
@@ -84,14 +84,14 @@ namespace EmployeeWebApi.Services.UserService
                 {
                     serviceResponse.Data = null;
                     serviceResponse.Message = "Wrong password!";
-                    serviceResponse.Success= false;
+                    serviceResponse.Success = false;
 
                     return serviceResponse;
                 }
 
                 user.Token = _tokenService.GenerateUserToken(user); ;
 
-                serviceResponse.Data = new UserResult(user.Email, user.Token);
+                serviceResponse.Data = new UserResult(user.Id, user.Email, user.Token);
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Login successful";
 
@@ -112,6 +112,19 @@ namespace EmployeeWebApi.Services.UserService
             try
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public async Task<UserModel> GetUserByIdAsync(Guid Id)
+        {
+            try
+            {
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id == Id);
                 return user;
             }
             catch (Exception ex)
