@@ -1,13 +1,11 @@
-﻿using EmployeeWebApi.Models.Token;
-
-namespace EmployeeWebApi.Models.User
+﻿namespace EmployeeWebApi.Models.User
 {
     public class UserResult
     {
         public string Email { get; set; }
-        public TokenModel Token { get; set; } = new TokenModel();
+        public string Token { get; set; }
 
-        public UserResult(string email, TokenModel token)
+        public UserResult(string email, string token)
         {
             this.Email = email;
             this.Token = token;

@@ -1,5 +1,6 @@
 using EmployeeWebApi.DataContext;
 using EmployeeWebApi.Services.EmployeeService;
+using EmployeeWebApi.Services.TokenService;
 using EmployeeWebApi.Services.UserService;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +25,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 // Dependence Injection
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var app = builder.Build();
 

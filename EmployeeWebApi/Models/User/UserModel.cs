@@ -1,5 +1,4 @@
-﻿using EmployeeWebApi.Models.Token;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using EmployeeWebApi.Cryptographys;
 
@@ -14,13 +13,13 @@ namespace EmployeeWebApi.Models.User
         public byte[] PasswordSalt { get; set; }
         public bool IsActive { get; set; } = true;
         [NotMapped]
-        public TokenModel Token { get; set; } = new TokenModel();
+        public string Token { get; set; }
 
         public static UserModel Create(UserParams createParams)
         {
             var model = new UserModel();
 
-            model.Email = createParams.Email;    
+            model.Email = createParams.Email;
 
             Cryptography.GeneratePasswordHash(createParams.Password, out byte[] userPwdHash, out byte[] userPwdSalt);
 

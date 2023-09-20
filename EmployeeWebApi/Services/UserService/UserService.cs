@@ -3,6 +3,7 @@ using EmployeeWebApi.DataContext;
 using EmployeeWebApi.Models.Employee;
 using EmployeeWebApi.Models.ServiceResponse;
 using EmployeeWebApi.Models.User;
+using EmployeeWebApi.Services.TokenService;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -11,10 +12,12 @@ namespace EmployeeWebApi.Services.UserService
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly ITokenService _tokenService;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(ApplicationDbContext context, ITokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
 
         public async Task<ServiceResponse<UserResult>> CreateAsync(UserParams createParams)
@@ -85,6 +88,8 @@ namespace EmployeeWebApi.Services.UserService
 
                     return serviceResponse;
                 }
+
+                user.Token = _tokenService.GenerateUserToken(user); ;
 
                 serviceResponse.Data = new UserResult(user.Email, user.Token);
                 serviceResponse.Success = true;
