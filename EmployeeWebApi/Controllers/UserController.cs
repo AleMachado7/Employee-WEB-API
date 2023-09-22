@@ -19,14 +19,14 @@ namespace EmployeeWebApi.Controllers
 
         [HttpPost("create")]
         [AllowAnonymous]
-        public async Task<ActionResult<ServiceResponse<UserModel>>> CreateAsync(UserParams createParams)
+        public async Task<ActionResult<ServiceResponse<UserResult>>> CreateAsync(UserParams createParams)
         {
             return Ok(await _userService.CreateAsync(createParams));
         }
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<ServiceResponse<UserModel>>> LoginAsync(string email, string password)
+        public async Task<ActionResult<ServiceResponse<UserResult>>> LoginAsync(string email, string password)
         {
             return this.Ok(await _userService.LoginAsync(email, password));
         }
