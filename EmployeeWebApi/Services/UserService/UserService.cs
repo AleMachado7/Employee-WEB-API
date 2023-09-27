@@ -4,6 +4,7 @@ using EmployeeWebApi.Models.Employee;
 using EmployeeWebApi.Models.ServiceResponse;
 using EmployeeWebApi.Models.User;
 using EmployeeWebApi.Services.TokenService;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography;
 
@@ -20,7 +21,7 @@ namespace EmployeeWebApi.Services.UserService
             _tokenService = tokenService;
         }
 
-        public async Task<ServiceResponse<UserResult>> CreateAsync(UserParams createParams)
+        public async Task<ServiceResponse<UserResult>> CreateAsync([FromBody] UserParams createParams)
         {
             var serviceResponse = new ServiceResponse<UserResult>();
 
@@ -62,12 +63,12 @@ namespace EmployeeWebApi.Services.UserService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<UserResult>> LoginAsync(string email, string password)
+        public async Task<ServiceResponse<UserResult>> LoginAsync([FromBody] LoginParams loginParams) 
         {
             var serviceResponse = new ServiceResponse<UserResult>();
             try
             {
-                var user = await GetUserByEmailAsync(email);
+                var user = await GetUserByEmailAsync(loginParams.Email);
 
                 if (user is null)
                 {
@@ -78,7 +79,7 @@ namespace EmployeeWebApi.Services.UserService
                     return serviceResponse;
                 }
 
-                var passwordCorret = Cryptography.ValidatePassword(password, user.PasswordHash, user.PasswordSalt);
+                var passwordCorret = Cryptography.ValidatePassword(loginParams.Password, user.PasswordHash, user.PasswordSalt);
 
                 if (!passwordCorret)
                 {
