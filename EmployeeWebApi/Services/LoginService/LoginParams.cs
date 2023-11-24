@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace EmployeeWebApi.Services.UserService
+namespace EmployeeWebApi.Services.LoginService
 {
     public class LoginParams
     {

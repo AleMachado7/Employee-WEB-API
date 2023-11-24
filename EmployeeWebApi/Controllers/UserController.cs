@@ -14,21 +14,14 @@ namespace EmployeeWebApi.Controllers
 
         public UserController(IUserService userService)
         {
-            _userService = userService;
+            this._userService = userService;
         }
 
         [HttpPost("create")]
         [AllowAnonymous]
         public async Task<ActionResult<ServiceResponse<UserResult>>> CreateAsync(UserParams createParams)
         {
-            return Ok(await _userService.CreateAsync(createParams));
-        }
-
-        [HttpPost("login")]
-        [AllowAnonymous]
-        public async Task<ActionResult<ServiceResponse<UserResult>>> LoginAsync(string email, string password)
-        {
-            return this.Ok(await _userService.LoginAsync(email, password));
+            return Ok(await this._userService.CreateAsync(createParams));
         }
     }
 }

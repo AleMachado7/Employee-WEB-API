@@ -1,5 +1,6 @@
 using EmployeeWebApi.DataContext;
 using EmployeeWebApi.Services.EmployeeService;
+using EmployeeWebApi.Services.LoginService;
 using EmployeeWebApi.Services.TokenService;
 using EmployeeWebApi.Services.UserService;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -80,6 +81,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
 
 var app = builder.Build();
 

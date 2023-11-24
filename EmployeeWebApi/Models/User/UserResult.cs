@@ -6,11 +6,10 @@
         public string Email { get; set; }
         public string Token { get; set; }
 
-        public UserResult(Guid Id, string email, string token)
+        public UserResult(Guid Id, string email)
         {
             this.Id = Id;
             this.Email = email;
-            this.Token = token;
         }
     }
 }

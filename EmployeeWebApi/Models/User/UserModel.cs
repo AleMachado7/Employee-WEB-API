@@ -12,9 +12,6 @@ namespace EmployeeWebApi.Models.User
         public byte[] PasswordHash { get; set; }
         public byte[] PasswordSalt { get; set; }
         public bool IsActive { get; set; } = true;
-        [NotMapped]
-        public string Token { get; set; }
-
         public static UserModel Create(UserParams createParams)
         {
             var model = new UserModel();
