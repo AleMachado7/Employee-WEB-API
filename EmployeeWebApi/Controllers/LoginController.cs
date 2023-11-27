@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeWebApi.Controllers
 {
-    [Route("api/user")]
+    [Route("api")]
     [ApiController]
     public class LoginController : ControllerBase
     {
