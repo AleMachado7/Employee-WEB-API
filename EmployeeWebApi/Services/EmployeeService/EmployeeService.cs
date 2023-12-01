@@ -165,13 +165,13 @@ namespace EmployeeWebApi.Services.EmployeeService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<EmployeeModel>> UpdateEmployeeAsync(EmployeeModel employeeToUpdate)
+        public async Task<ServiceResponse<EmployeeModel>> UpdateEmployeeAsync(Guid id, EmployeeParams updateParams)
         {
             var serviceResponse = new ServiceResponse<EmployeeModel>();
 
             try
             {
-                var employee = _context.Employees.AsNoTracking().FirstOrDefault(x => x.Id == employeeToUpdate.Id);
+                var employee = _context.Employees.AsNoTracking().FirstOrDefault(x => x.Id == id);
 
                 if (employee == null)
                 {
@@ -181,12 +181,12 @@ namespace EmployeeWebApi.Services.EmployeeService
                     return serviceResponse;
                 }
 
-                employee.UpdateDate = DateTime.Now.ToLocalTime();
+                employee.Update(updateParams);
 
-                _context.Employees.Update(employeeToUpdate);
+                _context.Employees.Update(employee);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Data = employeeToUpdate;
+                serviceResponse.Data = employee;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Employee updated!";
             }

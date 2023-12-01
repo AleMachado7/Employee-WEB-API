@@ -27,35 +27,35 @@ namespace EmployeeWebApi.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> GetEmployeeByIdAsync(Guid id)
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> GetEmployeeByIdAsync([FromRoute] Guid id)
         {
             return Ok(await _employeeService.GetEmployeeByIdAsync(id));
         }
 
         [HttpPost]
         [Authorize]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> CreateEmployeeAsync(EmployeeParams createParams)
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> CreateEmployeeAsync([FromBody] EmployeeParams createParams)
         {
             return Ok(await _employeeService.CreateEmployeeAsync(createParams));
         }
 
-        [HttpPut("inactivateEmployee")]
+        [HttpPut("inactivateEmployee/{id}")]
         [Authorize]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> InactivateEmployeeAsync(Guid id)
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> InactivateEmployeeAsync([FromRoute] Guid id)
         {
             return Ok(await _employeeService.InactivateEmployeeAsync(id));
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         [Authorize]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> UpdateEmployeeAsync(EmployeeModel employeeToUpdate)
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> UpdateEmployeeAsync([FromRoute] Guid id, [FromBody] EmployeeParams updateParams)
         {
-            return Ok(await _employeeService.UpdateEmployeeAsync(employeeToUpdate));
+            return Ok(await _employeeService.UpdateEmployeeAsync(id, updateParams));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize]
-        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> DeleteEmployeeAsync(Guid id)
+        public async Task<ActionResult<ServiceResponse<EmployeeModel>>> DeleteEmployeeAsync([FromRoute] Guid id)
         {
             return Ok(await _employeeService.DeleteEmployeeAsync(id));
         }

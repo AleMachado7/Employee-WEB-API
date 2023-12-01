@@ -26,5 +26,14 @@ namespace EmployeeWebApi.Models.Employee
 
             return model;
         }
+
+        public void Update(EmployeeParams updateParams)
+        {
+            this.Name = updateParams.Name;
+            this.Surname = updateParams.Surname;
+            this.Department = updateParams.Department;
+            this.WorkShift = updateParams.WorkShift;
+            this.UpdateDate = DateTime.Now.ToLocalTime();
+        }
     }
 }
