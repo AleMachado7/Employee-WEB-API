@@ -146,7 +146,7 @@ namespace EmployeeWebApi.Services.EmployeeService
                     return serviceResponse;
                 }
 
-                employee.Active = false;
+                employee.Active = !employee.Active;
                 employee.UpdateDate = DateTime.Now.ToLocalTime();
 
                 _context.Employees.Update(employee);
@@ -154,7 +154,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 
                 serviceResponse.Data = employee;
                 serviceResponse.Success = true;
-                serviceResponse.Message = "Employee inactivated!";
+                serviceResponse.Message = employee.Active ? "Employee Activated!" : "Employee Inactivated!";
             }
             catch (Exception ex)
             {

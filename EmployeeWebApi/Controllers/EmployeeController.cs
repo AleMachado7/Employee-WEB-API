@@ -39,7 +39,7 @@ namespace EmployeeWebApi.Controllers
             return Ok(await _employeeService.CreateEmployeeAsync(createParams));
         }
 
-        [HttpPut("inactivateEmployee/{id}")]
+        [HttpPut("inactivate/{id}")]
         [Authorize]
         public async Task<ActionResult<ServiceResponse<EmployeeModel>>> InactivateEmployeeAsync([FromRoute] Guid id)
         {
