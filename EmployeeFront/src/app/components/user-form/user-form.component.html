@@ -1,0 +1,27 @@
+<mat-card>
+  <form [formGroup]="loginForm" (ngSubmit)="submit()" #formDir="ngForm">
+    <h1>{{ formTitle }}</h1>
+    <p>Please inform your {{ btnAction.toLowerCase() }} details.</p>
+
+
+    <div class="input-container">
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input matInput id="email" type="text" formControlName="email" placeholder="Enter your email" required>
+      </mat-form-field>
+    </div>
+
+    <div class="input-container">
+      <mat-form-field class="example-full-width">
+        <mat-label>Password</mat-label>
+        <input matInput id="password" type="password" formControlName="password" placeholder="Enter your password" required>
+      </mat-form-field>
+    </div>
+
+    <div class="btn-container">
+      <button mat-raised-button color="accent" type="submit">{{ btnAction }}</button>
+      <button mat-raised-button color="primary" *ngIf="btnAction == 'Login'" routerLink="../register">Register</button>
+      <button mat-raised-button color="primary" *ngIf="btnAction == 'New Account'" routerLink="../login">Go Back</button>
+    </div>
+  </form>
+</mat-card>

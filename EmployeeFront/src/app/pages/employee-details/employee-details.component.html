@@ -1,0 +1,65 @@
+<mat-card>
+    <h1> Employee Details </h1>
+
+    <form *ngIf="employeeData">
+        <div class="input-container">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput type="text" id="name" value="{{ employeeData.name }}" disabled>
+            </mat-form-field>
+        </div>
+    
+        <div class="input-container">
+            <mat-form-field>
+                <mat-label>Surname</mat-label>
+                <input matInput type="text" id="surname" value="{{ employeeData.surname }}" disabled>
+            </mat-form-field>
+        </div>
+    
+        <div class="input-container">
+            <mat-form-field>
+                <mat-label>Department</mat-label>
+                <input matInput type="text" id="department" value="{{ employeeData.department }}" disabled>
+            </mat-form-field>
+        </div>
+    
+        <div class="input-container">
+            <mat-form-field>
+                <mat-label>Workshift</mat-label>
+                <input matInput type="text" id="workShift" value="{{ employeeData.workShift }}" disabled>
+            </mat-form-field>
+        </div>
+
+        <div class="input-container">
+            <mat-form-field>
+                <mat-label>Status</mat-label>
+                <input matInput type="text" id="status" value="{{ employeeData.active ? 'Active' : 'Disabled' }}" disabled>
+            </mat-form-field>
+        </div>
+
+        <div class="input-container">
+            <mat-form-field>
+                <mat-label>Creation Date</mat-label>
+                <input matInput type="text" id="creationDate" value="{{ employeeData.creationDate }}" disabled>
+            </mat-form-field>
+        </div>
+
+        <div class="input-container">
+            <mat-form-field>
+                <mat-label>Update Date</mat-label>
+                <input matInput type="text" id="updateDate" value="{{ employeeData.updateDate }}" disabled>
+            </mat-form-field>
+        </div>
+    
+        <div>
+            <div class="btn-container">
+                <button mat-raised-button [color]="employeeData.active ? 'primary' : 'accent'"  (click)="inactivateEmployee()">{{ employeeData.active ? "Inactivate Employee" : "Activate Employee" }}</button>
+
+                <button mat-raised-button color="warn" (click)="openDeleteDialog()">Delete Employee</button> 
+            </div>
+            <div class="btn-container">
+                <button mat-raised-button color="accent" routerLink="/home">Go back</button>
+            </div>            
+        </div>
+    </form>
+</mat-card>

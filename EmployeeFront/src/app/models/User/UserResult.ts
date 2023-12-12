@@ -1,5 +1,4 @@
 export interface UserResult {
-    id? : string;
+    id : string;
     email: string;
-    token: string;
 }

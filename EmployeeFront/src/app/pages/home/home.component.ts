@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from 'src/app/models/Employee';
-import { EmployeeService } from 'src/app/services/employee.service';
+import { Employee } from 'src/app/models/Employee/Employee';
+import { EmployeeService } from 'src/app/services/employee/employee.service';
 
 @Component({
   selector: 'app-home',
@@ -11,6 +11,7 @@ export class HomeComponent implements OnInit {
 
   employees: Employee[] = []
   employeeDefault : Employee[] = []
+  tableColumns: string[] = ['Status', 'Name', 'Surname', 'Department', 'Work Shift', 'Edit / Details'];
 
   constructor(private employeeService: EmployeeService) {}
 
