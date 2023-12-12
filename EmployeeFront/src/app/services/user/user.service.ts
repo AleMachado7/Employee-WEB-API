@@ -1,7 +1,8 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Response } from 'src/app/models/ServiceResponse/Response';
+import { UserParams } from 'src/app/models/User/UserParams';
 import { UserResult } from 'src/app/models/User/UserResult';
 import { environment } from 'src/environments/environment';
 
@@ -13,7 +14,7 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  register(userParams: JSON): Observable<Response<UserResult>> {
+  register(userParams: UserParams): Observable<Response<UserResult>> {
     return this.http.post<Response<UserResult>>(this.ApiUrl, userParams);
   }
 
