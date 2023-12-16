@@ -23,5 +23,12 @@ namespace EmployeeWebApi.Controllers
         {
             return Ok(await this._userService.CreateAsync(createParams));
         }
+
+        [HttpGet("currentUser")]
+        [AllowAnonymous]
+        public async Task<ActionResult<ServiceResponse<UserResult>>> getCurrentUser()
+        {
+            return Ok(await this._userService.GetHttpContextUser());
+        }
     }
 }

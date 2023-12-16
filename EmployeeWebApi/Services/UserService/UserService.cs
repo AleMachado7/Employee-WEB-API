@@ -3,16 +3,19 @@ using EmployeeWebApi.Models.ServiceResponse;
 using EmployeeWebApi.Models.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace EmployeeWebApi.Services.UserService
 {
     public class UserService : IUserService
     {
         private readonly ApplicationDbContext _context;
+        private readonly IHttpContextAccessor _httpContext;
 
-        public UserService(ApplicationDbContext context)
+        public UserService(ApplicationDbContext context, IHttpContextAccessor httpContext)
         {
             _context = context;
+            _httpContext = httpContext;
         }
 
         public async Task<ServiceResponse<UserResult>> CreateAsync([FromBody] UserParams createParams)
@@ -44,7 +47,7 @@ namespace EmployeeWebApi.Services.UserService
                 _context.Add(user);
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Data = new UserResult(user.Id, user.Email);
+                serviceResponse.Data = new UserResult(user);
                 serviceResponse.Success = true;
                 serviceResponse.Message = "User created!";
             }
@@ -81,6 +84,40 @@ namespace EmployeeWebApi.Services.UserService
             {
                 return null;
             }
+        }
+        public async Task<ServiceResponse<UserResult>> GetHttpContextUser()
+        {
+            var serviceResponse = new ServiceResponse<UserResult>();
+
+            try
+            {
+                Claim claim = _httpContext.HttpContext?.User.Claims.FirstOrDefault(c => c.Type == "id");
+
+                if (claim != null)
+                {
+                    string id = claim.Value;
+                    var user = await GetUserByIdAsync(Guid.Parse(id));
+
+                    if (user is null)
+                    {
+                        serviceResponse.Data = null;
+                        serviceResponse.Message = "Can't find user";
+                        serviceResponse.Success = false;
+
+                        return serviceResponse;
+                    }
+
+                    serviceResponse.Data = new UserResult(user);
+                    serviceResponse.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
         }
     }
 }

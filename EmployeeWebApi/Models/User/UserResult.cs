@@ -5,10 +5,10 @@
         public Guid Id { get; set; }
         public string Email { get; set; }
 
-        public UserResult(Guid Id, string email)
+        public UserResult(UserModel user)
         {
-            this.Id = Id;
-            this.Email = email;
+            this.Id = user.Id;
+            this.Email = user.Email;
         }
     }
 }
