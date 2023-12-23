@@ -19,7 +19,7 @@ export class EmployeeCreateComponent {
 
   createEmployee(employee: EmployeeParams) {
     this.employeeService.createEmployee(employee).subscribe(() => {
-      this.router.navigate(['home']);
+      this.router.navigate(['employees']);
     });
   }
 }

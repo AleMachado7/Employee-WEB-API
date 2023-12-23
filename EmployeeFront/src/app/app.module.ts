@@ -26,6 +26,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { LoginComponent } from './pages/login/login.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UsersComponent } from './pages/users/users.component';
+import { EmployeesComponent } from './pages/employees/employees.component';
+import { HeaderComponent } from './components/header/header.component';
 
 
 @NgModule({
@@ -41,6 +44,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     EmployeeDetailsComponent,
     LoginComponent,
     DeleteDialogComponent,
+    UsersComponent,
+    EmployeesComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

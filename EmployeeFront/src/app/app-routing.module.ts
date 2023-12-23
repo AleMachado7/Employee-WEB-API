@@ -8,14 +8,18 @@ import { EmployeeEditComponent } from './pages/employee-edit/employee-edit.compo
 import { EmployeeDetailsComponent } from './pages/employee-details/employee-details.component';
 import { LoginComponent } from './pages/login/login.component';
 import { authGuard } from './guard/auth.guard';
+import { EmployeesComponent } from './pages/employees/employees.component';
+import { UsersComponent } from './pages/users/users.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
   { path: "register", component: RegisterComponent }, 
   { path: "home", component: HomeComponent, canActivate: [authGuard] },
-  { path: "employee/create", component: EmployeeCreateComponent,canActivate: [authGuard]},
-  { path: "employee/edit/:id", component: EmployeeEditComponent, canActivate: [authGuard]},
-  { path: "employee/details/:id", component: EmployeeDetailsComponent, canActivate: [authGuard]},
+  { path: "employees", component: EmployeesComponent,canActivate: [authGuard]},
+  { path: "employees/create", component: EmployeeCreateComponent,canActivate: [authGuard]},
+  { path: "employees/edit/:id", component: EmployeeEditComponent, canActivate: [authGuard]},
+  { path: "employees/details/:id", component: EmployeeDetailsComponent, canActivate: [authGuard]},
+  { path: "users", component: UsersComponent, canActivate: [authGuard]},
   { path: "", redirectTo: "/login", pathMatch: "full" },  
   { path: "**", component: NotFoundComponent },  
 ];

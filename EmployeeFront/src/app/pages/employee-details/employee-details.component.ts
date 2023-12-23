@@ -45,7 +45,7 @@ export class EmployeeDetailsComponent implements OnInit {
       this.employeeService
         .inactivateEmployee(this.employeeData.id)
         .subscribe(() => {
-          this.router.navigate(['home']);
+          this.router.navigate(['employees']);
         });
     }
   }

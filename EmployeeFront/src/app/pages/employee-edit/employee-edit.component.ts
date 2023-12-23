@@ -32,7 +32,7 @@ export class EmployeeEditComponent implements OnInit {
 
   editEmployee(employeeParams: EmployeeParams) {
     this.employeeService.editEmployee(this.employee.id!, employeeParams).subscribe(() => {
-      this.router.navigate(['home']);
+      this.router.navigate(['employees']);
     });
   }
 }
