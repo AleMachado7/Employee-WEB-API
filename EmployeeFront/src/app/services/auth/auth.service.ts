@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LoginResult } from 'src/app/models/Login/LoginResult';
 import { Response } from 'src/app/models/ServiceResponse/Response';
@@ -12,7 +13,7 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   private ApiUrl = `${environment.ApiUrl}/login`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(loginParams: UserParams): Observable<Response<LoginResult>> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -21,11 +22,15 @@ export class AuthService {
     });
   }
 
-  getToken(): string {
+  getToken(): string  {
     const token = localStorage.getItem('authToken');
     if (token === null) {
       return 'Invalid token';
     }
     return token;
+  }
+
+  deleteToken(): void {
+    localStorage.removeItem('authToken');
   }
 }

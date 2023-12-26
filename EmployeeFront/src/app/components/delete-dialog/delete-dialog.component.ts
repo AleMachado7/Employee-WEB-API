@@ -18,7 +18,7 @@ export class DeleteDialogComponent {
   delete(): void {
     if (this.data.id != null) {
       this.employeeService.deleteEmployee(this.data.id).subscribe(() => {
-        this.router.navigate(['home']);
+        this.router.navigate(['employees']);
       });
     }
   }
