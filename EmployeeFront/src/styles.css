@@ -40,12 +40,10 @@ main {
 }
 
 mat-card {
-    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 3rem;
-    margin: 2rem;
 }
 
 mat-card > form {
@@ -106,6 +104,13 @@ mat-pseudo-checkbox::after {
 .dialog {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#login-container {
+    display: flex;
+    height: 100%;
     align-items: center;
     justify-content: center;
 }
