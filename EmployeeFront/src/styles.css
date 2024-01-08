@@ -112,3 +112,7 @@ button {
 th, td {
     text-align: center !important;
 }
+
+table#users-table-container {
+    width: 500px !important ;
+}

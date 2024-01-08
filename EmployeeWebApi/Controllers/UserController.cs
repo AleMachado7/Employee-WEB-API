@@ -26,9 +26,17 @@ namespace EmployeeWebApi.Controllers
 
         [HttpGet("currentUser")]
         [AllowAnonymous]
-        public async Task<ActionResult<ServiceResponse<UserResult>>> getCurrentUser()
+        public async Task<ActionResult<ServiceResponse<UserResult>>> GetCurrentUser()
         {
             return Ok(await this._userService.GetHttpContextUser());
         }
+
+        [HttpGet]
+        [Authorize]
+        public async Task<ActionResult<ServiceResponse<List<UserResult>>>> GetUsers()
+        {
+            return Ok(await this._userService.GetUsersAsync());
+        }
+
     }
 }

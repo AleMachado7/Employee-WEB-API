@@ -39,4 +39,13 @@ export class UserService {
       headers: headers,
     });
   }
+
+  getUsers(): Observable<Response<UserResult[]>> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders().set('Authorization', 'bearer ' + token);
+
+    return this.http.get<Response<UserResult[]>>(this.ApiUrl, {
+      headers: headers,
+    });
+  }
 }

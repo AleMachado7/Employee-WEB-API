@@ -119,5 +119,34 @@ namespace EmployeeWebApi.Services.UserService
 
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<List<UserResult>>> GetUsersAsync()
+        {
+            var serviceResponse = new ServiceResponse<List<UserResult>>();
+            try
+            {
+                var users = await _context.Users.ToListAsync();
+                var result = new List<UserResult>();
+
+                foreach (var user in users)
+                {
+                    result.Add(new UserResult(user));
+                }
+
+                serviceResponse.Data = result;
+                serviceResponse.Success = true;
+
+                if (serviceResponse.Data.Count == 0)
+                {
+                    serviceResponse.Message = "No data was found.";
+                }
+            } catch (Exception ex)
+            {
+                serviceResponse.Message = ex.Message;
+                serviceResponse.Success = false;
+            }
+
+            return serviceResponse;
+        }
     }
 }
