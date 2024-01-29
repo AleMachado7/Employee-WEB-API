@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class RegisterComponent {
   formTitle: string = 'Register';
-  btnAction: string = 'New Account';
+  btnAction: string = 'Create Account';
 
   constructor(private userService: UserService, private router: Router) {}
 

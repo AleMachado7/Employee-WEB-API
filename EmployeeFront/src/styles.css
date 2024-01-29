@@ -113,6 +113,6 @@ th, td {
     text-align: center !important;
 }
 
-table#users-table-container {
-    width: 500px !important ;
+#users-table {
+    padding: 100px 600px;
 }
