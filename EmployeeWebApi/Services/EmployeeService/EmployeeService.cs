@@ -107,16 +107,30 @@ namespace EmployeeWebApi.Services.EmployeeService
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<EmployeeModel>>> GetEmployeesAsync()
+        public async Task<ServiceResponse<EmployeeResponse>> GetEmployeesAsync(int pageNumber)
         {
-            var serviceResponse = new ServiceResponse<List<EmployeeModel>>();
+            var serviceResponse = new ServiceResponse<EmployeeResponse>();
 
             try
             {
-                serviceResponse.Data = await _context.Employees.ToListAsync();
+                var pageSize = 5f;
+                var pageCount = Math.Ceiling(this._context.Employees.Count() / pageSize);
+
+                var employees = await _context.Employees
+                    .Skip((pageNumber - 1) * (int)pageSize)
+                    .Take((int)pageSize)
+                    .ToListAsync();
+
+                serviceResponse.Data = new EmployeeResponse
+                {
+                    Employees = employees,
+                    CurrentPage = pageNumber,
+                    TotalPages = (int) pageCount
+                };
+
                 serviceResponse.Success = true;
 
-                if (serviceResponse.Data.Count == 0)
+                if (serviceResponse.Data.Employees.Count == 0)
                 {
                     serviceResponse.Message = "No data was found.";
                 }

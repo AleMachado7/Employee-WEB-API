@@ -17,12 +17,13 @@ namespace EmployeeWebApi.Models.Employee
 
         public static EmployeeModel Create(EmployeeParams createParams)
         {
-            var model = new EmployeeModel();
-
-            model.Name = createParams.Name;
-            model.Surname = createParams.Surname;
-            model.Department = createParams.Department;
-            model.WorkShift = createParams.WorkShift;
+            var model = new EmployeeModel
+            {
+                Name = createParams.Name,
+                Surname = createParams.Surname,
+                Department = createParams.Department,
+                WorkShift = createParams.WorkShift
+            };
 
             return model;
         }

@@ -18,11 +18,11 @@ namespace EmployeeWebApi.Controllers
             _employeeService = employeeService;
         }
 
-        [HttpGet]
+        [HttpGet("page/{pageNumber}")]
         [Authorize]
-        public async Task<ActionResult<ServiceResponse<List<EmployeeModel>>>> GetEmployeesAsync()
+        public async Task<ActionResult<ServiceResponse<List<EmployeeModel>>>> GetEmployeesAsync(int pageNumber)
         {
-            return Ok(await _employeeService.GetEmployeesAsync());
+            return Ok(await _employeeService.GetEmployeesAsync(pageNumber));
         }
 
         [HttpGet("{id}")]

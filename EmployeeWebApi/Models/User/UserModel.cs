@@ -14,9 +14,10 @@ namespace EmployeeWebApi.Models.User
         public bool IsActive { get; set; } = true;
         public static UserModel Create(UserParams createParams)
         {
-            var model = new UserModel();
-
-            model.Email = createParams.Email;
+            var model = new UserModel
+            {
+                Email = createParams.Email
+            };
 
             Cryptography.GeneratePasswordHash(createParams.Password, out byte[] userPwdHash, out byte[] userPwdSalt);
 

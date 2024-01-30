@@ -5,7 +5,7 @@ namespace EmployeeWebApi.Services.EmployeeService
 {
     public interface IEmployeeService
     {
-        Task<ServiceResponse<List<EmployeeModel>>> GetEmployeesAsync();
+        Task<ServiceResponse<EmployeeResponse>> GetEmployeesAsync(int pageNumber);
         Task<ServiceResponse<EmployeeModel>> GetEmployeeByIdAsync(Guid Id);
         Task<ServiceResponse<EmployeeModel>> CreateEmployeeAsync(EmployeeParams createParams);
         Task<ServiceResponse<EmployeeModel>> UpdateEmployeeAsync(Guid id, EmployeeParams updateParams);
