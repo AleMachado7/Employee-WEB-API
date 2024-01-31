@@ -18,24 +18,13 @@ export class EmployeesComponent implements OnInit {
     'Work Shift',
     'Edit / Details',
   ];
+  currentPage: number = 1;
+  totalPages!: number;
 
   constructor(private employeeService: EmployeeService) {}
 
   ngOnInit(): void {
-    this.employeeService.getEmployees().subscribe((employeeData) => {
-      const data = employeeData.data;
-
-      data.map((item) => {
-        item.creationDate = new Date(item.creationDate!).toLocaleDateString('pt-br');
-        item.updateDate = new Date(item.updateDate!).toLocaleDateString('pt-br');
-        if (item.department.length > 3) {
-          item.department = item.department.split(/(?=[A-Z])/).join(' ');
-        }
-      });
-
-      this.employees = employeeData.data;
-      this.employeeDefault = employeeData.data;
-    });
+    this.getEmployees(this.currentPage);
   }
 
   search(event: Event) {
@@ -45,5 +34,41 @@ export class EmployeesComponent implements OnInit {
     this.employees = this.employeeDefault.filter((employee) => {
       return employee.name.toLowerCase().includes(value);
     });
+  }
+
+  getEmployees(page: number) {
+    this.employeeService.getEmployees(page).subscribe((employeeData) => {
+      const data = employeeData.data;
+
+      data.map((item) => {
+        item.creationDate = new Date(item.creationDate!).toLocaleDateString(
+          'pt-br'
+        );
+        item.updateDate = new Date(item.updateDate!).toLocaleDateString(
+          'pt-br'
+        );
+        if (item.department.length > 3) {
+          item.department = item.department.split(/(?=[A-Z])/).join(' ');
+        }
+      });
+
+      this.employees = employeeData.data;
+      this.employeeDefault = employeeData.data;
+      this.totalPages = employeeData.totalPages;
+    });
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage += 1;
+      this.getEmployees(this.currentPage);
+    }
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.currentPage -= 1;
+      this.getEmployees(this.currentPage);
+    }
   }
 }

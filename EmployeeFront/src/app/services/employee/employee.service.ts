@@ -15,11 +15,11 @@ export class EmployeeService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  getEmployees(): Observable<Response<Employee[]>> {
+  getEmployees(page: Number): Observable<Response<Employee[]>> {
     const token = this.authService.getToken();
     const headers = new HttpHeaders().set('Authorization', 'bearer ' + token);
 
-    return this.http.get<Response<Employee[]>>(this.ApiUrl, {
+    return this.http.get<Response<Employee[]>>(this.ApiUrl + `/page/${page}`, {
       headers: headers,
     });
   }

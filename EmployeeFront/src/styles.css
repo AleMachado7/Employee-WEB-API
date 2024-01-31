@@ -116,3 +116,7 @@ th, td {
 #users-table {
     padding: 100px 600px;
 }
+
+.table-control-buttons {
+    margin-top: 1rem;
+}

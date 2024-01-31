@@ -53,6 +53,10 @@
           
             <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
-          </table>          
+          </table>   
+          <div class="btn-container table-control-buttons">
+            <button  (click)="previousPage()" mat-raised-button color="accent" *ngIf="this.currentPage > 1">Previous Page</button>  
+            <button (click)="nextPage()" mat-raised-button color="accent" *ngIf="this.currentPage < this.totalPages">Next Page</button>   
+          </div>  
     </mat-card>    
 </main>
