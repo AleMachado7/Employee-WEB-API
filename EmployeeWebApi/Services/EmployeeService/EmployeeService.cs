@@ -113,6 +113,8 @@ namespace EmployeeWebApi.Services.EmployeeService
 
             try
             {
+                if (pageNumber < 1) pageNumber = 1;
+
                 var pageSize = 10f;
                 var pageCount = Math.Ceiling(this._context.Employees.Count() / pageSize);
 
