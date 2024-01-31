@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using EmployeeWebApi.Cryptographys;
 
 namespace EmployeeWebApi.Models.User

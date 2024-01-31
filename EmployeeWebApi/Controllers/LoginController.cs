@@ -1,7 +1,6 @@
 ﻿using EmployeeWebApi.Models.ServiceResponse;
 using EmployeeWebApi.Models.User;
 using EmployeeWebApi.Services.LoginService;
-using EmployeeWebApi.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

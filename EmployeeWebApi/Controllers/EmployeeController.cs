@@ -2,7 +2,6 @@
 using EmployeeWebApi.Models.ServiceResponse;
 using EmployeeWebApi.Services.EmployeeService;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeWebApi.Controllers
@@ -20,7 +19,7 @@ namespace EmployeeWebApi.Controllers
 
         [HttpGet("page/{pageNumber}")]
         [Authorize]
-        public async Task<ActionResult<ServiceResponse<List<EmployeeModel>>>> GetEmployeesAsync(int pageNumber)
+        public async Task<ActionResult<ServiceResponse<List<EmployeeModel>>>> GetEmployeesAsync([FromRoute] int pageNumber)
         {
             return Ok(await _employeeService.GetEmployeesAsync(pageNumber));
         }
